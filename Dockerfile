@@ -1,4 +1,5 @@
 FROM node:20.10.0
+LABEL org.opencontainers.image.source=https://github.com/derkoenigeu/netcup-dyndns
 
 ENV PORT=3000
 ENV USER=""
