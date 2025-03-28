@@ -39,6 +39,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 app.get('/:ip?', async (req, res) => {
     const ip = req.params.ip || req.query['ip'];
     if (!ip || ip.length <= 0) {
