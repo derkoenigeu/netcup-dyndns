@@ -6,11 +6,11 @@ if(!process.env.API_KEY || process.env.API_KEY === "") {
     throw Error('No API_KEY found!')
 }
 
-if(!process.env.PASSWORD || process.env.PASSWORD === "") {
+if(!process.env.API_PASSWORD || process.env.PASSWORD === "") {
     throw Error('No PASSWORD found!')
 }
 
-if(!process.env.USER || process.env.USER === "") {
+if(!process.env.API_USER || process.env.USER === "") {
     throw Error('No USER found!')
 }
 
@@ -24,8 +24,8 @@ if (!process.env.TOKEN || process.env.TOKEN === "") {
 
 const api = await new NetcupApi().init({
     apikey: process.env.API_KEY,
-    apipassword: process.env.PASSWORD,
-    customernumber: process.env.USER
+    apipassword: process.env.API_PASSWORD,
+    customernumber: process.env.API_USER
 })
 
 const app = express()
