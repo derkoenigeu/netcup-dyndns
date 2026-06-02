@@ -1,35 +1,24 @@
-FROM node:20.10.0
+FROM node:22-alpine
 LABEL org.opencontainers.image.source=https://github.com/derkoenigeu/netcup-dyndns
 LABEL org.opencontainers.image.title="Netcup DynDNS"
 LABEL org.opencontainers.image.description="A lightweight service for updating DNS records on Netcup using their API."
 LABEL org.opencontainers.image.licenses="ISC"
-LABEL org.opencontainers.image.version="1.0.0"
-LABEL org.opencontainers.image.license="LICENSE"
 
-# Set environment variables
-ENV PORT=3000
-ENV USER=""
-ENV PASSWORD=""
-ENV RECORDS=""
-ENV API_KEY=""
-ENV TOKEN=""
-
-# Create and use a non-root user
-RUN useradd --create-home --shell /bin/bash netcup
-USER netcup
+RUN addgroup --system netcup && adduser --system --ingroup netcup netcup
 
 WORKDIR /app
 
-# Copy package files and install dependencies
-ADD package*.json /app/
+COPY package*.json ./
 RUN npm ci --omit=dev --no-fund --no-audit
 
-# Copy application code
-ADD index.mjs /app/
+COPY index.mjs ./
+COPY src/ ./src/
 
-# Add a healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:$PORT/health || exit 1
+USER netcup
 
-# Start the application
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD node -e "fetch('http://localhost:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+
 CMD ["node", "index.mjs"]
