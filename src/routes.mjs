@@ -1,6 +1,19 @@
 import { Router } from 'express';
 import { isIPv4 } from 'node:net';
 
+/**
+ * Creates the Express router for the DynDNS service.
+ *
+ * Route overview:
+ * - `GET /health`  — Public health check. No authentication required. Returns `200 OK`.
+ * - `GET /:ip?`    — Updates all configured DNS A records to the provided IPv4 address.
+ *                    The IP can be passed as a path segment (`/1.2.3.4`) or as a query
+ *                    parameter (`?ip=1.2.3.4`). Requires `Authorization: Bearer <TOKEN>`.
+ *
+ * @param {{ token: string, records: { domain: string, hostnames: string[] }[] }} config - App configuration.
+ * @param {{ infoDnsRecords: Function, updateDnsRecords: Function }} client - Netcup API client.
+ * @returns {import('express').Router} Configured Express router.
+ */
 export function createRouter(config, client) {
   const router = Router();
 
