@@ -1,17 +1,23 @@
 {
   "name": "dyndns",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "DynDNS service for updating Netcup DNS records",
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
-    "start": "node index.mjs"
+    "start": "node index.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "netcup-node": "^0.0.13"
+    "dotenv": "^17.0.0",
+    "express": "^4.22.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^4.1.8"
   }
 }

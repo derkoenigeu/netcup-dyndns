@@ -10,7 +10,7 @@ A simple Dynamic DNS (DynDNS) service for updating DNS records on Netcup using t
 
 ## Requirements
 - Docker (recommended for production)
-- Node.js (v20 or higher, for development)
+- Node.js (v22 or higher, for development)
 
 ## Setup for Production
 
@@ -24,14 +24,14 @@ docker run -d -p 3000:3000 --env-file .env ghcr.io/derkoenigeu/netcup-dyndns:lat
 ### 2. Configure Environment Variables
 Create a `.env` file and fill in the required values:
 
-| Variable   | Description                                      |
-|------------|--------------------------------------------------|
-| `PORT`     | Port for the server to listen on (default: 3000) |
-| `API_KEY`  | Netcup API key                                   |
-| `USER`     | Netcup customer number                          |
-| `PASSWORD` | Netcup API password                             |
-| `RECORDS`  | DNS records to update (format: `domain:sub1,sub2`) |
-| `TOKEN`    | Bearer token for authentication                 |
+| Variable       | Description                                                          |
+|----------------|----------------------------------------------------------------------|
+| `PORT`         | Port for the server to listen on (default: 3000)                    |
+| `API_KEY`      | Netcup API key                                                       |
+| `API_USER`     | Netcup customer number                                               |
+| `API_PASSWORD` | Netcup API password                                                  |
+| `RECORDS`      | DNS records to update — format: `domain.com:sub1,sub2;other.com:@`  |
+| `TOKEN`        | Bearer token for authenticating requests to this service            |
 
 ## Setup for Development or Contributing
 
@@ -61,6 +61,11 @@ npm start
 
 The server will start on the specified port.
 
+### 5. Run Tests
+```bash
+npm test
+```
+
 ## Usage
 
 ### Update DNS Records
@@ -78,8 +83,22 @@ curl -X GET "http://localhost:3000/health"
 
 This endpoint is used in the Docker health check configuration to ensure the container is healthy.
 
+## Project Structure
+
+```
+src/
+  config.mjs   — env variable parsing and validation
+  netcup.mjs   — Netcup JSON-RPC API client (native fetch, session management)
+  routes.mjs   — Express router (/health, auth middleware, /:ip? update handler)
+index.mjs      — entry point
+test/
+  config.test.mjs
+  netcup.test.mjs
+  routes.test.mjs
+```
+
 ## GitHub Actions
-This project includes a GitHub Actions pipeline to build and push the Docker image to `ghcr.io`.
+This project includes a GitHub Actions pipeline to build and push the Docker image to `ghcr.io`, and a separate workflow that runs the test suite on every push.
 
 ## License
 This project is licensed under the [ISC License](./LICENSE).
