@@ -19,5 +19,9 @@
   "devDependencies": {
     "supertest": "^7.0.0",
     "vitest": "^4.1.8"
+  },
+  "overrides": {
+    "body-parser": "^1.20.6",
+    "postcss": "^8.5.18"
   }
 }
