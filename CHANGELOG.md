@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/derkoenigeu/netcup-dyndns/compare/1.3.1...1.3.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* **deps:** patch js-yaml and qs vulnerabilities via overrides ([052295e](https://github.com/derkoenigeu/netcup-dyndns/commit/052295e29356d2ec4a25b7a779703995573b24fa)), closes [#11](https://github.com/derkoenigeu/netcup-dyndns/issues/11)
+
 ## [1.3.1](https://github.com/derkoenigeu/netcup-dyndns/compare/1.3.0...1.3.1) (2026-08-22)
 
 
