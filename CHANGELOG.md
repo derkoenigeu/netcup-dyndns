@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/derkoenigeu/netcup-dyndns/compare/1.3.2...1.3.3) (2026-11-03)
+
+
+### Bug Fixes
+
+* **deps:** update transitive deps to patch dependabot alerts ([5efb603](https://github.com/derkoenigeu/netcup-dyndns/commit/5efb603772968f0aeaad9cf6c1f35979ee21333d))
+
 ## [1.3.2](https://github.com/derkoenigeu/netcup-dyndns/compare/1.3.1...1.3.2) (2026-09-22)
 
 
